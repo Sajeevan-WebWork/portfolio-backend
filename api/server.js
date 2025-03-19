@@ -37,10 +37,11 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/', async (req, res) => {
-  res.send("API is running")
+  res.json({ message: "API is Running!" });
 })
 // Handle Contact Form Submission
 app.post("/api/contact", async (req, res) => {
+  res.json({ message: "Contact form received!" });
   try {
     const { name, email, subject, message } = req.body;
 
