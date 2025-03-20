@@ -1,83 +1,60 @@
-import { MongoClient } from 'mongodb';
-import nodemailer from 'nodemailer';
+import mongoose from "mongoose";
+import nodemailer from "nodemailer";
+import Contact from "../../models/Contact";
 
-// Cache MongoDB client to reuse across function calls in a serverless environment
-const uri = process.env.MONGODB_URI;
-let cachedClient = null;
-let cachedDb = null;
-
-async function connectToDatabase() {
-    if (cachedClient && cachedDb) {
-        return { client: cachedClient, db: cachedDb };
-    }
-    const client = await MongoClient.connect(uri, {
+// MongoDB Connection
+const connectDB = async () => {
+    if (mongoose.connection.readyState >= 1) return;
+    await mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-    const db = client.db(process.env.MONGODB_DB);
-    cachedClient = client;
-    cachedDb = db;
-    return { client, db };
-}
+};
 
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        res.status(405).json({ message: 'Method not allowed' });
-        return;
-    }
-
-    const { name, email, message } = req.body;
-
-    // Validate required fields
-    if (!name || !email || !message) {
-        res.status(422).json({ message: 'Missing required fields' });
-        return;
+    if (req.method !== "POST") {
+        return res.status(405).json({ error: "Method Not Allowed" });
     }
 
     try {
-        // Save the contact inquiry into MongoDB
-        const { db } = await connectToDatabase();
-        const newContact = {
-            name,
-            email,
-            message,
-            submittedAt: new Date(),
-        };
-        await db.collection('contacts').insertOne(newContact);
+        // Connect to the database
+        await connectDB();
 
-        // Configure nodemailer transporter with SMTP credentials
-        let transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: parseInt(process.env.EMAIL_PORT),
+        const { name, email, message } = req.body;
+
+        // Create and save the contact record in MongoDB
+        const contact = new Contact({ name, email, message });
+        await contact.save();
+
+        // Nodemailer setup
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
         });
 
-        // Prepare the email to the site administrator
-        const inquiryMailOptions = {
-            from: process.env.EMAIL_FROM,
-            to: process.env.ADMIN_EMAIL,
-            subject: 'New Contact Inquiry',
-            text: `You have a new contact inquiry:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
-        };
+        // Email to Admin
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: process.env.ADMIN_EMAIL, // Your Admin Email
+            subject: "New Contact Inquiry",
+            text: `A new user contacted you.\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}\nDate: ${new Date()}`,
+        });
 
-        // Prepare the thank-you email to the user
-        const thankYouMailOptions = {
-            from: process.env.EMAIL_FROM,
+        // Thank You Email to User
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
             to: email,
-            subject: 'Thank You for Contacting Us',
-            text: `Dear ${name},\n\nThank you for reaching out. We have received your inquiry and will get back to you shortly.\n\nBest regards,\nYour Company Name`,
-        };
+            subject: "Thank You for Contacting Us!",
+            text: `Hi ${name},\n\nThank you for reaching out. We will get back to you soon.\n\nBest Regards,\nYour Company`,
+        });
 
-        // Send both emails
-        await transporter.sendMail(inquiryMailOptions);
-        await transporter.sendMail(thankYouMailOptions);
-
-        res.status(200).json({ message: 'Contact submitted successfully' });
+        // Success response
+        res.status(200).json({ message: "Form submitted successfully" });
     } catch (error) {
-        console.error('Error processing contact form:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        console.error("Error submitting form:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
