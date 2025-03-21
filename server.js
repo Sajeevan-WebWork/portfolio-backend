@@ -25,6 +25,7 @@ const contactSchema = new mongoose.Schema({
     name: String,
     email: String,
     message: String,
+    subjest: String,
     createdAt: { type: Date, default: Date.now },
 });
 
@@ -42,10 +43,10 @@ const transporter = nodemailer.createTransport({
 // API Route to handle form submission
 app.post("/contact", async (req, res) => {
     try {
-        const { name, email, message } = req.body;
+        const { name, email, message, subjest } = req.body;
 
         // Save data to MongoDB
-        const newContact = new Contact({ name, email, message });
+        const newContact = new Contact({ name, email, message, subjest });
         await newContact.save();
 
         // Email to Admin
@@ -53,9 +54,10 @@ app.post("/contact", async (req, res) => {
             from: process.env.ADMIN_EMAIL,
             to: process.env.ADMIN_EMAIL, // Send to Admin
             subject: "New Contact Inquiry",
-            html: `<p><strong>Name:</strong> ${name}</p>
-             <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Message:</strong> ${message}</p>`,
+            html: `<h4><strong>Name:</strong> ${name}</h4>
+             <h5><strong>Email:</strong> ${email}<h5p>
+             <h5><strong>Message:</strong> ${message}</h5>,
+             <h5><strong>Subjest:</strong> ${subjest}</h5>`
         };
 
         // Email to User
@@ -73,7 +75,7 @@ app.post("/contact", async (req, res) => {
         await transporter.sendMail(adminMailOptions);
         await transporter.sendMail(userMailOptions);
 
-        res.status(200).json({ message: "Form submitted successfully" });
+        res.status(200).json({ message: "Submission successful! ✅😊" });
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: "Something went wrong" });
