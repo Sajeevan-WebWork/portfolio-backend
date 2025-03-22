@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
@@ -25,7 +27,7 @@ const contactSchema = new mongoose.Schema({
     name: String,
     email: String,
     message: String,
-    subjest: String,
+    subject: String,
     createdAt: { type: Date, default: Date.now },
 });
 
@@ -43,10 +45,10 @@ const transporter = nodemailer.createTransport({
 // API Route to handle form submission
 app.post("/contact", async (req, res) => {
     try {
-        const { name, email, message, subjest } = req.body;
+        const { name, email, message, subject } = req.body;
 
         // Save data to MongoDB
-        const newContact = new Contact({ name, email, message, subjest });
+        const newContact = new Contact({ name, email, message, subject });
         await newContact.save();
 
         // Email to Admin
@@ -54,11 +56,16 @@ app.post("/contact", async (req, res) => {
             from: process.env.ADMIN_EMAIL,
             to: process.env.ADMIN_EMAIL, // Send to Admin
             subject: "New Contact Inquiry",
-            html: `<h4><strong>Name:</strong> ${name}</h4>
-             <h5><strong>Email:</strong> ${email}<h5p>
-             <h5><strong>Message:</strong> ${message}</h5>,
-             <h5><strong>Subjest:</strong> ${subjest}</h5>`
+            html: `<h2><strong>Name:</strong> ${name}</h2>
+             <h3><strong>Email:</strong> ${email}<h3>
+             <h3><strong>Message:</strong> ${message}</h3>
+             <h3><strong>Subject:</strong> ${subject}</h3>`
         };
+
+        // Read email template
+        const templatePath = path.join(__dirname, "thanksMailTemplate.html")
+        let HtmlTemplate = fs.readFileSync(templatePath, "utf8")
+
 
         // Email to User
         const userMailOptions = {
@@ -68,7 +75,9 @@ app.post("/contact", async (req, res) => {
             html: `<p>Dear ${name},</p>
              <p>Thank you for reaching out! We will get back to you soon.</p>
              <p>Best Regards,</p>
-             <p>Your Company</p>`,
+             <p>Sajeevan Techwork</p>`,
+
+            // html: HtmlTemplate
         };
 
         // Send emails
