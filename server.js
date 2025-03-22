@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const fs = require("fs");
-const path = require("path");
 
 const app = express();
 
@@ -62,11 +60,6 @@ app.post("/contact", async (req, res) => {
              <h3><strong>Subject:</strong> ${subject}</h3>`
         };
 
-        // Read email template
-        const templatePath = path.join(__dirname, "thanksMailTemplate.html")
-        let HtmlTemplate = fs.readFileSync(templatePath, "utf8")
-
-
         // Email to User
         const userMailOptions = {
             from: process.env.ADMIN_EMAIL,
@@ -95,6 +88,9 @@ app.get("/", (req, res) => {
     res.send("<h1>API is Running successfully</h1>")
 })
 
+const port = process.env.PORT || 4000;
+
+
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = port|| 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
