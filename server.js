@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const rateLimit = require("express-rate-limit");
-const Contact = require("./Models/Contact");
+const rateLimit = require("express-rate-limit")
 
 const app = express();
 
@@ -72,7 +71,16 @@ mongoose
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log(err));
 
+// Define Contact Schema
+const contactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    message: String,
+    subject: String,
+    createdAt: { type: Date, default: Date.now },
+});
 
+const Contact = mongoose.model("Contact", contactSchema);
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
