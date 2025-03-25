@@ -4,12 +4,63 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const rateLimit = require("express-rate-limit")
 
 const app = express();
 
-// Middleware
-app.use(cors());
+const allowedOrigins = ['https://sajeevan-web-dev.web.app', 'http://localhost:5000', 'http://localhost:5173'];
+
+// CORS Middleware
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not Allowed by CORS"))
+        }
+    }
+}));
+
 app.use(bodyParser.json());
+
+const limiter = rateLimit({
+    winddwMs: 15 * 60 * 1000,
+    max: 100,
+    message: "To many requests from this IP, Please try again later.",
+})
+
+app.use(limiter)
+
+app.use((req, res, next) => {
+    const origin = req.get('origin')
+    const referer = req.get('referer')
+
+    if (origin && !allowedOrigins.includes(origin)) {
+        return res.status(403).json({ error: 'Access forbidden: Invalid Origin' })
+    }
+
+    if (
+        referer &&
+        !referer.startsWith('http://localhost:5173') &&
+        !referer.startsWith('https://sajeevan-web-dev.web.app')
+    ) {
+        return res.status(403).json({ error: 'Access forbidden: Invalid Origin' });
+    }
+
+    next();
+})
+
+// API Key Authentication Middleware
+app.use((req, res, next) => {
+    const apiKey = req.headers['x-api-key'];
+
+    if (apiKey !== process.env.API_SECRET_KEY) {
+        return res.status(403).json({ error: "Access Denied: Invalid API Key" });
+    }
+
+    next();
+});
+
 
 // MongoDB Connection
 mongoose
@@ -88,9 +139,8 @@ app.get("/", (req, res) => {
     res.send("<h1>API is Running successfully</h1>")
 })
 
-const port = process.env.PORT || 4000;
-
 
 // Start the server
-const PORT = port|| 5000;
+const PORT = process.env.PORT || 4000;
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
