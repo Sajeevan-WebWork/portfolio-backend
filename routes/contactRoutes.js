@@ -61,6 +61,35 @@ router.post("/signup", async (req, res) => {
         user = new User({ name, email, password: hashePassword })
         await user.save();
 
+
+        const adminMailOptions = {
+            from: process.env.ADMIN_EMAIL,
+            to: process.env.ADMIN_EMAIL,
+            subject: `New User Signup Notification – ${name}`,
+            html: `<h2><strong>Name:</strong> ${name}</h2>
+                   <h3><strong>Email:</strong> ${email}</h3>`
+        };
+
+        const userMailOptions = {
+            from: process.env.ADMIN_EMAIL,
+            to: email,
+            subject: "Welcome to login Auth – Thank You for Signing Up!",
+            html:
+                `
+                <p>Hi ${name},</p>
+                <p>Thank you for signing up with login Auth! 🎉 We're thrilled to have you on board.</p>
+                <p>You're all set to explore . To get started, simply</p>
+                <div>👉 <a href="https://login-auth-32bdd.web.app/login" target="_blank">Login</a></div>
+                <p>Once again, welcome aboard!</p>
+                <p>Sajeevan</p>
+                <a hre="https://login-auth-32bdd.web.app/" target="_blank">login Auth</a>
+
+                `
+        }
+
+        await transporter.sendMail(adminMailOptions);
+        await transporter.sendMail(userMailOptions);
+
         res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
         res.status(500).json({ message: "Server Error", error });
