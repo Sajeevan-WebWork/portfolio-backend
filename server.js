@@ -9,12 +9,6 @@ const authMiddleware = require("./middlewares/authMiddleware");
 const connectDB = require("./config/db");
 const router = require("./routes/contactRoutes");
 
-// Import custom modules
-// const connectDB = require("./config/db");
-// const corsOptions = require("./config/corsOptions");
-// const limiter = require("./middlewares/rateLimiter");
-// const authMiddleware = require("./middlewares/authMiddleware");
-// const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
