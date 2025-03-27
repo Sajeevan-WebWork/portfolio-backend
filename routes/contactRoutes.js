@@ -99,47 +99,74 @@ router.post("/signup", async (req, res) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Code</title>
+    <title>Welcome Onboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
         }
-        .container {
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: auto;
         }
-        .code {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
+        .header {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            color: #555555;
+            line-height: 1.6;
+        }
+        .content p {
+            margin: 0 0 15px;
         }
         .footer {
-            margin-top: 20px;
+            text-align: center;
+            padding: 10px 0;
             font-size: 12px;
-            color: #777;
+            color: #777777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Verification Code</h2>
-        <p>Your verification code is:</p>
-        <div class="code">${verificationToken}</div>
-        <p>Please enter this code to verify your email.</p>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome Onboard!</h1>
+        </div>
+        <div class="content">
+            <p>Hi ${name},</p>
+            <p>Welcome to Sajeevan Techwork! We are thrilled to have you join our community.</p>
+            <p>we are dedicated to providing you with the best experience possible. If you have any questions or need assistance, feel free to reach out at any time.</p>
+            <p>Click below to explore your account and get started:</p>
+            <a href="https://sajeevan-web-dev.web.app/" target="_blank" class="button">Get Started</a>
+            <p>We look forward to your journey with us!</p>
+            <p>Warm regards,</p>
+            <p>Sajeevan</p>
+        </div>
         <div class="footer">
-            <p>If you did not request this code, please ignore this email.</p>
+            &copy; Sajeevan. All rights reserved.
         </div>
     </div>
 </body>
@@ -170,7 +197,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/verify-email", async (req, res) => {
-    const { code, email } = req.body;
+    const { code, email, name } = req.body;
 
     try {
         const user = await User.findOne({
@@ -196,7 +223,86 @@ router.post("/verify-email", async (req, res) => {
             to: email,
             subject: `Welcome onboard`,
             // html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
-            html: `hi`
+            html: `
+            <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Onboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            color: #555555;
+            line-height: 1.6;
+        }
+        .content p {
+            margin: 0 0 15px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            color: #777777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome Onboard!</h1>
+        </div>
+        <div class="content">
+            <p>Hi ${name},</p>
+            <p>Welcome to Sajeevan Techwork! We are thrilled to have you join our community.</p>
+            <p>we are dedicated to providing you with the best experience possible. If you have any questions or need assistance, feel free to reach out at any time.</p>
+            <p>Click below to explore your account and get started:</p>
+            <a href="https://sajeevan-web-dev.web.app/" target="_blank" class="button">Get Started</a>
+            <p>We look forward to your journey with us!</p>
+            <p>Warm regards,</p>
+            <p>Sajeevan</p>
+        </div>
+        <div class="footer">
+            &copy; Sajeevan. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
+
+            `
 
         };
 
