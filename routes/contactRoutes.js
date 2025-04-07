@@ -7,6 +7,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User")
 
+
+// Portfolio Contact
 router.post("/contact", async (req, res) => {
     try {
         const { name, email, message, subject } = req.body;
@@ -31,10 +33,130 @@ router.post("/contact", async (req, res) => {
             from: process.env.ADMIN_EMAIL,
             to: email,
             subject: "Thank You for Contacting Us",
-            html: `<p>Dear ${name},</p>
-                   <p>Thank you for reaching out! We will get back to you soon.</p>
-                   <p>Best Regards,</p>
-                   <p>Sajeevan Techwork</p>`
+            html: `
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elegant Thank You Email</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #fdfcfb, #f5f4f0);
+      font-family: 'Open Sans', sans-serif;
+      color: #2b2b2b;
+    }
+
+    .email-container {
+      max-width: 620px;
+      margin: 60px auto;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #16202a, #6b98f2);
+      color: #fff8e7;
+      padding: 50px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 1px;
+color: #FFF;
+    }
+
+    .content {
+      padding: 40px 30px;
+    }
+
+    .content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #2f2f2f;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #444;
+      margin: 12px 0;
+    }
+
+    .thankyou-block {
+      background-color: #fff8e7;
+      border-left: 5px solid #d4af37;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .thankyou-block p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #6e4c1e;
+    }
+
+    .signature {
+      margin-top: 40px;
+      font-weight: 600;
+      color: #2b2b2b;
+    }
+
+    .footer {
+      background-color: #fafafa;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #aaa;
+      border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 640px) {
+      .content, .header {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <h1>Thank You for Reaching Out</h1>
+    </div>
+    <div class="content">
+      <h2>Hello Sajeevan,</h2>
+      <p>We sincerely appreciate your message and the time you took to get in touch with us. Our team is reviewing your inquiry and we’ll respond to you as soon as possible.</p>
+
+      <div class="thankyou-block">
+        <p>Your trust means everything to us.</p>
+      </div>
+
+      <p>In the meantime, if you need anything else or have an update to your message, feel free to reply to this email directly.</p>
+
+      <p class="signature">Warm regards,<br/>Sajeevan Techwork Team</p>
+    </div>
+    <div class="footer">
+      &copy; 2025 Sajeevan Techwork. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
+
+
+            `
         };
 
         // Send emails
