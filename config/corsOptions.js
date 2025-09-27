@@ -1,9 +1,11 @@
 const allowedOrigins = [
     'https://sajeevan-web-dev.web.app',
+    "https://darkgray-capybara-569515.hostingersite.com",
     "https://login-auth-32bdd.web.app",
     'http://localhost:5000',
     'http://localhost:5173',
     'http://localhost:5174'
+
 ];
 
 const corsOptions = {

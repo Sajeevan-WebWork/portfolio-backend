@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Submission — {{name}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 18px;
+            color: #6b7280;
+        }
+
+        dl {
+            margin: 20px 0;
+        }
+
+        dt {
+            font-weight: bold;
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        dd {
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            color: #111827;
+        }
+
+        .message-content {
+            background: #f9fafb;
+            border: 1px dashed #e5e7eb;
+            padding: 12px;
+            border-radius: 12px;
+            white-space: pre-wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .reply-btn {
+            background-color: #043a5e;
+            color: #ffffff;
+        }
+
+        .copy-btn {
+            background-color: #ffffff;
+            color: #111827;
+            border: 1px solid #d1d5db;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex dt {
+            padding-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>New Inquiry From {{name}}</h1>
+        <p style="padding-top: .5em;">Received: {{submittedAt}} · Source: Website contact form</p>
+
+        <dl>
+            <div class="flex">
+                <dt>Name:</dt>
+                <dd>{{name}}</dd>
+            </div>
+
+            <div class="flex">
+                <dt>Email</dt>
+                <dd><a href="mailto:{{email}}" style="color:#7c3aed; text-decoration:none;">{{email}}</a></dd>
+            </div>
+
+            <div class="flex">
+                <dt>Subject</dt>
+                <dd>{{subject}}</dd>
+            </div>
+
+            <dt>Message</dt>
+            <dd class="message-content">{{message}}</dd>
+        </dl>
+
+        <a href="mailto:{{email}}?subject={{subject}}" class="button reply-btn">Reply</a>
+    </div>
+</body>
+
+</html>
