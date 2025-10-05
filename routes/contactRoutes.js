@@ -44,7 +44,7 @@ function thankyouEmailTemplate(name, subject, submittedAt) {
 }
 
 
-function InquiryEmailTemplate(name, email, message, subject, submittedAt) {
+function InquiryEmailTemplate(name, email, message, services, subject, submittedAt) {
   if (!INQUIRY_TEMPLATE) return "Error loading template.";
 
   // Replace placeholders with actual data
@@ -52,6 +52,7 @@ function InquiryEmailTemplate(name, email, message, subject, submittedAt) {
     .replace(/{{name}}/g, name)
     .replace(/{{email}}/g, email)
     .replace(/{{message}}/g, message)
+    .replace(/{{services}}/g, services)
     .replace(/{{subject}}/g, subject)
     .replace(/{{submittedAt}}/g, submittedAt);
 
@@ -61,11 +62,11 @@ function InquiryEmailTemplate(name, email, message, subject, submittedAt) {
 // Portfolio Contact
 router.post("/contact", async (req, res) => {
   try {
-    const { name, email, message, subject } = req.body;
+    const { name, email, services, message, subject } = req.body;
 
     // Save data to MongoDB
     // This line caused the error when Contact was undefined.
-    const newContact = new Contact({ name, email, message, subject });
+    const newContact = new Contact({ name, email, services, message, subject });
     await newContact.save();
 
     // Email to Admin
@@ -75,7 +76,7 @@ router.post("/contact", async (req, res) => {
       from: process.env.ADMIN_EMAIL,
       to: process.env.ADMIN_EMAIL,
       subject: "New Contact Inquiry",
-      html: InquiryEmailTemplate(name, email, message, subject, submittedAt)
+      html: InquiryEmailTemplate(name, email, message, services, subject, submittedAt)
     };
 
     // Email to User
