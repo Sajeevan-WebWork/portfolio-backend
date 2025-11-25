@@ -1,125 +1,255 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You — Sajeevan Portfolio</title>
-  <style>
-    body {margin:0; font-family:'Roboto','Open Sans',Arial,sans-serif; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; background-color:#f4f6f8;}
-    table {border-collapse:collapse;}
-    img {border:0; height:auto; line-height:100%; outline:none; text-decoration:none; display:block;}
-    a {color:inherit; text-decoration:none;}
-    .email-wrapper {width:100%; background-color:#f4f6f8; padding:20px 0;} 
-    .email-content {max-width:600px; margin:0 auto; background:#ffffff; border-radius:8px; overflow:hidden;}
-    .brand {padding:20px 24px; display:flex; align-items:center; gap:12px;}
-    .brand-logo {width:48px; height:48px; border-radius:8px; background:#e9eef6; display:inline-block;}
-    .brand-title {font-family:'Roboto','Open Sans',Arial,sans-serif; font-size:18px; font-weight:700; color:#202c47;}
-    .brand-sub {font-family:'Roboto','Open Sans',Arial,sans-serif; font-size:14px; color:#474c57; padding-top: 5px;}
-    .content {padding:18px 24px 24px 24px; font-family:'Roboto','Open Sans',Arial,sans-serif; color:#111827;}
-    .hero {font-size:20px; line-height:1.25; font-weight:700; margin:6px 0 12px;}
-    .lead {font-size:15px; line-height:1.5; color:#374151; margin:0 0 14px;}
-    .meta {font-size:13px; color:#6b7280; margin-bottom:18px;}
-    .cta {display:inline-block; padding:12px 18px; border-radius:8px; font-weight:600; text-decoration:none;}
-    .footer {padding:16px 24px; font-size:13px; color:#6b7280; border-top:1px solid #eef2f7;}
-    .social {display:flex; margin-top:8px;}
-    .note {background:#f8fafc; border:1px solid #e6eef6; padding:12px; border-radius:6px; font-size:13px; color:#374151;}
-    @media only screen and (max-width:480px){
-      .brand {padding:16px;}
-      .content {padding:16px;}
-      .hero {font-size:18px;}
-      .brand-title {font-size:15px;}
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You — Sajeevan Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background-color: #f4f6f8;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            background-color: #f4f6f8;
+            padding: 20px 0;
+        }
+
+        .email-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .brand {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: #e9eef6;
+            display: inline-block;
+        }
+
+        .brand-title {
+            font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #202c47;
+        }
+
+        .brand-sub {
+            font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+            font-size: 14px;
+            color: #474c57;
+            padding-top: 5px;
+        }
+
+        .content {
+            padding: 18px 24px 24px 24px;
+            font-family: 'Roboto', 'Open Sans', Arial, sans-serif;
+            color: #111827;
+        }
+
+        .hero {
+            font-size: 20px;
+            line-height: 1.25;
+            font-weight: 700;
+            margin: 6px 0 12px;
+        }
+
+        .lead {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #374151;
+            margin: 0 0 14px;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 18px;
+        }
+
+        .cta {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer {
+            padding: 16px 24px;
+            font-size: 13px;
+            color: #6b7280;
+            border-top: 1px solid #eef2f7;
+        }
+
+        .social {
+            display: flex;
+            margin-top: 8px;
+        }
+
+        .note {
+            background: #f8fafc;
+            border: 1px solid #e6eef6;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        @media only screen and (max-width:480px) {
+            .brand {
+                padding: 16px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .hero {
+                font-size: 18px;
+            }
+
+            .brand-title {
+                font-size: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-    <tbody style="margin: 40px auto; display: table;">
-        <tr>
-            <td align="center">
-                <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        <tbody style="margin: 40px auto; display: table;">
+            <tr>
+                <td align="center">
+                    <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
 
-                    <tr>
-                        <td>
-                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                <tr>
-                                    <td class="brand">
-                                        <img src="https://sajeevan-web-dev.web.app/assets/mail-favicon.png"
-                                            alt="Sajeevan Portfolio Logo" width="50" height="50"
-                                            style="border-radius:350%; display:block; border: 2px solid #000000;" />
-                                        <div style="line-height:1; padding-left: 10px;">
-                                            <div class="brand-title">Sajeevan</div>
-                                            <div class="brand-sub">Frontend Developer</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                    <tr>
+                                        <td class="brand">
+                                            <img src="https://sajeevan-web-dev.web.app/assets/mail-favicon.png"
+                                                alt="Sajeevan Portfolio Logo" width="50" height="50"
+                                                style="border-radius:350%; display:block; border: 2px solid #000000;" />
+                                            <div style="line-height:1; padding-left: 10px;">
+                                                <div class="brand-title">Sajeevan</div>
+                                                <div class="brand-sub">Frontend Developer</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="content">
-                            <div class="hero">Thank you, {{name}} 👋</div>
-                            <div class="lead">I appreciate you reaching out. This is a quick note to confirm I received
-                                your message and to say I’ll review it thoroughly.</div>
+                        <tr>
+                            <td class="content">
+                                <div class="hero">Thank you, {{name}} 👋</div>
+                                <div class="lead">I appreciate you reaching out. This is a quick note to confirm I
+                                    received
+                                    your message and to say I’ll review it thoroughly.</div>
 
-                            <div class="meta">Submitted on: <strong>{{submittedAt}}</strong></div>
+                                <div class="meta">Submitted on: <strong>{{submittedAt}}</strong></div>
 
-                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                                style="margin-bottom:16px;">
-                                <tr>
-                                    <td class="note">“Excited to discuss collaboration opportunities for your upcoming
-                                        {{subject}} project.”</td>
-                                </tr>
-                            </table>
+                                <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                                    style="margin-bottom:16px;">
+                                    <tr>
+                                        <td class="note">“Excited to discuss collaboration opportunities for your
+                                            upcoming
+                                            {{subject}} Project.”</td>
+                                    </tr>
+                                </table>
 
-                            <div style="margin-bottom:18px;">
-                                <p style="margin:0 0 10px; font-size:14px; color:#374151;">Here’s what you can expect
-                                    next:</p>
-                                <ul style="margin:0 0 14px 18px; padding:0; color:#374151; font-size:14px;">
-                                    <li>I'll review your message and get back within <strong>48 hours</strong>.</li>
-                                    <li>If you shared files or links, I’ll include them in the reply for context.</li>
-                                </ul>
-                            </div>
+                                <div style="margin-bottom:18px;">
+                                    <p style="margin:0 0 10px; font-size:14px; color:#374151;">Here’s what you can
+                                        expect
+                                        next:</p>
+                                    <ul style="margin:0 0 14px 18px; padding:0; color:#374151; font-size:14px;">
+                                        <li>I'll review your message and get back within <strong>48 hours</strong>.</li>
+                                        <li>If you shared files or links, I’ll include them in the reply for context.
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <div style="margin-bottom:25px;">
-                                <a target="_blank" href="https://wa.me/918220512105?text=Hello%20Sajeevan%2C%20I%20came%20across%20your%20work%20and%20I%E2%80%99d%20love%20to%20discuss%20a%20potential%20project%20with%20you." class="cta" style="background:#3472be; color:#ffffff; display:inline-block; padding:12px 18px; border-radius:8px; font-family:'Roboto','Open Sans',Arial,sans-serif; font-size:15px; text-decoration:none;">Book
-                                    a quick call</a>
-                            </div>
+                                <div style="margin-bottom:25px;">
+                                    <a target="_blank"
+                                        href="https://wa.me/918220512105?text=Hello%20Sajeevan%2C%20I%20came%20across%20your%20work%20and%20I%E2%80%99d%20love%20to%20discuss%20a%20potential%20project%20with%20you."
+                                        class="cta"
+                                        style="background:#3472be; color:#ffffff; display:inline-block; padding:12px 18px; border-radius:8px; font-family:'Roboto','Open Sans',Arial,sans-serif; font-size:15px; text-decoration:none;">Book
+                                        a quick call</a>
+                                </div>
 
-                            <p style="margin:0; font-size:14px; color:#6b7280;">If you prefer, simply reply to this
-                                email with additional details — I read every message personally.</p>
-                        </td>
-                    </tr>
+                                <p style="margin:0; font-size:14px; color:#6b7280;">If you prefer, simply reply to this
+                                    email with additional details — I read every message personally.</p>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="footer">
-                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                <tr>
-                                    <td style="vertical-align:top;">
-                                        <div
-                                            style="font-weight:700; color:#111827; font-family:'Roboto','Open Sans',Arial,sans-serif;">
-                                            Sajeevan</div>
-                                        <div style="margin-top:6px;">Frontend Developer</div>
-                                        <div style="margin-top:8px; font-size:13px; color:#6b7280;">Email: <a
-                                                href="mailto:hello@itssajeevan.com" style="font-weight: 700;">hello@itssajeevan.com</a></div>
-                                    </td>
-                                    <td style="text-align:right; vertical-align:top;">
-                                        <div class="social">
-                                            <a href="https://www.linkedin.com/in/sajeevan-frontend-dev/" target="_blank"
-                                                style="font-size:13px; font-weight: 700; color:#6b7280; margin-right: 15px;">LinkedIn</a>
-                                            <a href="https://sajeevan-web-dev.web.app/" target="_blank"
-                                                style="font-size:13px; font-weight: 700; color:#6b7280;">Portfolio</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="footer">
+                                <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                    <tr>
+                                        <td style="vertical-align:top;">
+                                            <div
+                                                style="font-weight:700; color:#111827; font-family:'Roboto','Open Sans',Arial,sans-serif;">
+                                                Sajeevan</div>
+                                            <div style="margin-top:6px;">Frontend Developer</div>
+                                            <div style="margin-top:8px; font-size:13px; color:#6b7280;">Email: <a
+                                                    href="mailto:hello@itssajeevan.com"
+                                                    style="font-weight: 700;">hello@itssajeevan.com</a></div>
+                                        </td>
+                                        <td style="text-align:right; vertical-align:top;">
+                                            <div class="social">
+                                                <a href="https://www.linkedin.com/in/sajeevan-frontend-dev/"
+                                                    target="_blank"
+                                                    style="font-size:13px; font-weight: 700; color:#6b7280; margin-right: 15px;">LinkedIn</a>
+                                                <a href="https://sajeevan-web-dev.web.app/" target="_blank"
+                                                    style="font-size:13px; font-weight: 700; color:#6b7280;">Portfolio</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
 
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>
